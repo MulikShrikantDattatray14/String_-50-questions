@@ -1,0 +1,69 @@
+Problem Description :-
+
+You are given a character string A having length N, consisting of only lowercase and uppercase latin letters.
+
+You have to toggle case of each character of string A. For e.g 'A' is changed to 'a', 'e' is changed to 'E', etc.
+
+Problem Constraints:
+1 <= N <= 10^5
+A[i] ∈ ['a'-'z', 'A'-'Z']
+
+Input Format:
+First and only argument is a character string A.
+
+Output Format:
+Return a character string.
+
+Example Input
+Input 1:
+ A = "Hello" 
+Input 2:
+ A = "tHiSiSaStRiNg" 
+
+
+Example Output
+Output 1:
+ hELLO 
+Output 2:
+ ThIsIsAsTrInG 
+
+
+Example Explanation
+Explanation 1:
+ 'H' changes to 'h'
+ 'e' changes to 'E'
+ 'l' changes to 'L'
+ 'l' changes to 'L'
+ 'o' changes to 'O'
+Explanation 2:
+ "tHiSiSaStRiNg" changes to "ThIsIsAsTrInG".
+
+ ==============================================================================================================================================================================
+
+ //approach-1 :-
+
+A = "Hello";
+let N = A.length;
+let res = "";
+for (let i = 0; i < N; i++) {
+    //charCodeAt- returns the ascii value of the string at the given positon
+     // String.fromCharCode - generates string from the given ASCII value.
+    res += String.fromCharCode(A[i].charCodeAt(0) ^ 32);
+}
+console.log(res);
+
+//==================================================================================
+//approach-2
+A1 = "tHiSiSaStRiNg";
+let N1 = A1.length;
+let res1 = "";
+for (let i = 0; i < N1; i++) {
+  if (A1[i] >= "a" && A1[i] <= "z") {
+    res1 += String.fromCharCode(A1[i].charCodeAt(0) - 32);
+  } else {
+    res1 += String.fromCharCode(A1[i].charCodeAt(0) + 32);
+  }
+  
+}
+console.log(res1);
+================================================================================================================================================================================

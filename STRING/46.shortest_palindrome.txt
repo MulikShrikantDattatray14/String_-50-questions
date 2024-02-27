@@ -1,0 +1,166 @@
+https://www.youtube.com/watch?v=M0Nwvd-G-tg&t=134s
+
+//https://leetcode.com/problems/shortest-palindrome/description/
+
+================================================================================================
+
+You are given a string s. You can convert s to a 
+palindrome
+ by adding characters in front of it.
+
+Return the shortest palindrome you can find by performing this transformation.
+
+ 
+
+Example 1:
+
+Input: s = "aacecaaa"
+Output: "aaacecaaa"
+Example 2:
+
+Input: s = "abcd"
+Output: "dcbabcd"
+ 
+
+Constraints:
+
+0 <= s.length <= 5 * 104
+s consists of lowercase English letters only.
+
+
+
+
+
+
+
+
+
+
+
+=====================================================================================================
+
+function computeLPS(txt) {
+    ////https://www.youtube.com/watch?v=__Cu92rei1s
+    let n = txt.length;
+    let LPS = [];
+    LPS[0] = 0;
+    for (let i = 1; i < n; i++) {
+        let x = LPS[i - 1];
+
+        while (txt[i] != txt[x]) {
+            if (x == 0) {
+                x = -1;
+                break;
+            }
+
+            x = LPS[x - 1];
+        }
+
+        LPS[i] = x + 1;
+    }
+
+    return LPS;
+}
+
+let pattern = "abcd";
+let original = pattern;
+let original_len = original.length;
+pattern = pattern + "$" + pattern.split("").reverse().join("");
+
+let ans = computeLPS(pattern);
+console.log(ans)
+let max = ans[ans.length - 1];
+let remaining = original.substring(max, original_len + 1);
+
+remaining = remaining.split("").reverse().join("");
+
+let final = remaining + original;
+console.log(final); //"ababbabababbbabbaba"
+
+=====================================================================================================================================================================
+// scaler question - make string palindrome 
+
+Problem Description
+Given a string A of size N consisting only of lowercase alphabets. The only operation allowed is to insert characters in the beginning of the string.
+
+Find and return how many minimum characters are needed to be inserted to make the string a palindrome string.
+
+
+
+Problem Constraints
+1 <= N <= 106
+
+
+
+Input Format
+The only argument given is a string A.
+
+
+
+Output Format
+Return an integer denoting the minimum characters needed to be inserted in the beginning to make the string a palindrome string.
+
+
+
+Example Input
+Input 1:
+
+ A = "abc"
+Input 2:
+
+ A = "bb"
+
+
+Example Output
+Output 1:
+
+ 2
+Output 2:
+
+ 0
+
+
+Example Explanation
+Explanation 1:
+
+ Insert 'b' at beginning, string becomes: "babc".
+ Insert 'c' at beginning, string becomes: "cbabc".
+Explanation 2:
+
+ There is no need to insert any character at the beginning as the string is already a palindrome. 
+
+ ====================================================================================================================================================================
+
+ function computeLPS(txt) {
+    let n = txt.length;
+    let LPS = [];
+    LPS[0] = 0;
+    for (let i = 1; i < n; i++) {
+        let x = LPS[i - 1];
+
+        while (txt[i] != txt[(x)]) {
+            if (x == 0) {
+                x = -1;
+                break;
+            }
+
+            x = LPS[x - 1];
+        }
+
+        LPS[i] = x + 1;
+    }
+
+    return LPS;
+}
+
+    function solve(A) {
+
+        let c = A + "$" + A.split("").reverse().join("")
+        let lps = computeLPS(c);
+        let ans = A.length - lps[lps.length - 1];
+        return ans;
+
+    }
+
+
+======================================================================================================================================================================

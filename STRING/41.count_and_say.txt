@@ -1,0 +1,44 @@
+//https://www.youtube.com/watch?v=1YUqtoT9YoE&t=62s
+Example 1:
+
+Input: n = 1
+Output: "1"
+Explanation: This is the base case.
+Example 2:
+
+Input: n = 4
+Output: "1211"
+Explanation:
+countAndSay(1) = "1"
+countAndSay(2) = say "1" = one 1 = "11"
+countAndSay(3) = say "11" = two 1's = "21"
+countAndSay(4) = say "21" = one 2 + one 1 = "12" + "11" = "1211"
+
+===================================================================================
+
+//https://www.youtube.com/watch?v=1YUqtoT9YoE&t=62s
+function countAndSay(n) {
+    if (n === 1) return '1';
+    if (n === 2) return '11';
+    let s = '11';
+    for (let i = 3; i <= n; i++) {// each level.
+        let t = '';
+        let count = 1;
+        for (let j = 1; j < s.length + 1; j++) {
+            if (s[j] !== s[j - 1]) {
+                t += count.toString();// append count to t.
+                t += s[j - 1];// append value to t.
+                count = 1;
+            } else {
+                count++;
+            }
+        }
+        s = t;// move on to next level.
+    }
+    return s;
+}
+// Example usage:
+const result = countAndSay(4);
+console.log(result);  // Output: '1211'
+
+============================================================================================================

@@ -1,0 +1,81 @@
+Problem Description :
+
+You are given a string A of size N.
+Return the string A after reversing the string word by word.
+NOTE:
+A sequence of non-space characters constitutes a word.
+Your reversed string should not contain leading or trailing spaces, even if it is present in the input string.
+If there are multiple spaces between words, reduce them to a single space in the reversed string.
+
+Problem Constraints:
+1 <= N <= 3 * 105
+
+Input Format:
+The only argument given is string A.
+
+Output Format:
+Return the string A after reversing the string word by word.
+
+Example Input:
+Input 1:
+A = "the sky is blue"
+Input 2:
+A = "this is ib"
+
+Example Output:
+Output 1:
+"blue is sky the"
+Output 2:
+"ib is this"    
+
+Example Explanation:
+Explanation 1:
+We reverse the string word by word so the string becomes "blue is sky the".
+Explanation 2:
+We reverse the string word by word so the string becomes "ib is this".
+
+================================================================================================================================================================================
+
+
+function reverse(A, s, e) {
+    A = Array.from(A);
+    while (s < e) {
+        let tmp = A[s];
+        A[s] = A[e];
+        A[e] = tmp;
+        s++;
+        e--;
+    }
+    return A.join("");
+}
+let A = "the sky is blue";
+
+let ans = solve(A);
+console.log(ans);
+
+function solve(A) {
+    let s = 0;
+    let e = A.length - 1;
+    //first ,reverse the entire string
+    A = reverse(A, s, e);
+    // now start reversing each word
+    let n = A.length;
+    // p2 pointer moves ahead of p1 
+    let p1 = 0;// start of each word
+    let p2 = 0;// end of each word
+    while (p2 < n) {// this while loop is for the entire input A
+        // till you get reach end of each word increase p2.
+        while (p2 < n && A[p2] != " ") {// this while loop is for the each word
+            p2++;
+        }
+        //now, reverse each word
+        A = reverse(A, p1, p2 - 1);
+        // move to next word by skipping the space in between
+        p1 = p2 + 1; // keep p1 at  start of the next word
+        p2 = p1; // now bring p2 to the position of p1
+    }
+    return A;
+}
+
+
+================================================================================================================================================================================

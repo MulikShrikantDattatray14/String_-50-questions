@@ -1,0 +1,77 @@
+Problem Description:
+
+//https://leetcode.com/problems/longest-palindromic-substring/description/
+
+Given a string A of size N, find and return the longest palindromic substring in A.
+Substring of string A is A[i...j] where 0 <= i <= j < len(A)
+Palindrome string:
+A string which reads the same backwards. More formally, A is palindrome if reverse(A) = A.
+Incase of conflict, return the substring which occurs first ( with the least starting index).
+
+Problem Constraints
+1 <= N <= 6000
+
+Input Format
+First and only argument is a string A.
+
+Output Format
+Return a string denoting the longest palindromic substring of string A.
+
+Example Input
+Input 1:
+A = "aaaabaaa"
+Input 2:
+A = "abba
+
+
+Example Output
+Output 1:
+"aaabaaa"
+Output 2:
+"abba"
+
+
+Example Explanation
+Explanation 1:
+We can see that longest palindromic substring is of length 7 and the string is "aaabaaa".
+Explanation 2:
+We can see that longest palindromic substring is of length 4 and the string is "abba".
+
+=====================================================================================
+
+
+function checkPalindrome(s, p1, p2) {
+    while (p1 >= 0 && p2 < s.length && s.charAt(p1) === s.charAt(p2)) {
+        p1--; // expand leftwards
+        p2++; // expand rightwards
+    }
+    // so now both p1 and p2 each have gone 1 step ahead , so while calculating take that into aacount , so real position of p1 is p1+1 , i.e take p1 back. and also p2 = p2+1 but here substring method requires +1 in the index i.e s.substring(start,end+1), so no  need to make changes to p2.
+    return s.substring(p1 + 1, p2);
+}
+
+let A = "aaaabaaa";
+let ans = longestPalindrome(A);
+console.log(ans);
+
+function longestPalindrome(A) {
+    let maxString = "";
+    let oddLen = "";
+    let evenLen = "";
+    for (let i = 0; i < A.length; i++) {
+        oddLen = checkPalindrome(A, i, i);
+        if (oddLen.length > maxString.length) {
+            maxString = oddLen;
+        }
+    }
+    for (let i = 0; i < A.length - 1; i++) {
+        evenLen = checkPalindrome(A, i, i + 1);
+        if (evenLen.length > maxString.length) {
+            maxString = evenLen;
+        }
+    }
+    return maxString;
+}
+
+
+
+================================================================================================================================================================================================================================

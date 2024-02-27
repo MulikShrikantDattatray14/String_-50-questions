@@ -1,0 +1,85 @@
+Given two strings s and goal, return true if and only if s can become goal after some number of shifts on s.
+
+A shift on s consists of moving the leftmost character of s to the rightmost position.
+
+For example, if s = "abcde", then it will be "bcdea" after one shift.
+ 
+
+Example 1:
+
+Input: s = "abcde", goal = "cdeab"
+Output: true
+Example 2:
+
+Input: s = "abcde", goal = "abced"
+Output: false
+
+========================================================================================
+// approach -1 : (but interviewer will not like it )
+----------------------------------------------------
+function rotate(s, goal) {
+    if (s.length !== goal.length) return false;
+   return s.concat(s).includes(goal);
+}
+
+let  s = "abcde";
+let goal = "cdeab"
+//Output: true
+
+
+// let s = "abcde";
+// let goal = "abced"
+//Output: false
+
+let ans=rotate(s, goal)
+console.log(ans)
+
+=========================================================================================
+approach-2 (using LPS) :-
+
+
+
+function computeLPS(txt) {
+    ////https://www.youtube.com/watch?v=__Cu92rei1s
+    let n = txt.length;
+    let LPS = [];
+    LPS[0] = 0;
+    for (let i = 1; i < n; i++) {
+        let x = LPS[i - 1];
+
+        while (txt[i] != txt[x]) {
+            if (x == 0) {
+                x = -1;
+                break;
+            }
+
+            x = LPS[x - 1];
+        }
+
+        LPS[i] = x + 1;
+    }
+
+    return LPS;
+}
+function rotate(s, goal) {
+    let goal_len = goal.length;
+    if (s.length !== goal.length) return false;
+    let c = goal + '$' + s + s;
+    let lps = computeLPS(c)
+    for (let i = 0; i <= lps.length; i++) {
+        if (goal_len == lps[i]) return true;
+    }
+    return false;
+}
+
+let s = "abcde";
+let goal = "cdeab"
+//Output: true
+
+
+// let s = "abcde";
+// let goal = "abced"
+//Output: false
+
+let ans = rotate(s, goal)
+console.log(ans)

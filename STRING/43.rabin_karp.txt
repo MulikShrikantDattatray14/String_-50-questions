@@ -1,0 +1,140 @@
+https://leetcode.com/problems/repeated-string-match/description/
+
+ //approach-1 : 
+
+   // Function to check if string B is a substring of string A
+    function isSubstring(repeatedA, B) {
+        function solve(A, B) {
+            let n = A.length; // large text
+            let m = B.length; // small word
+    //console.log(A,B)
+            let prime = 31;
+            let mod = 1e9 + 7;
+
+            let p_pow = new Array(n);
+            p_pow[0] = 1;
+            for (let i = 1; i < n; i++) {
+                p_pow[i] = (p_pow[i - 1] * prime) % mod;
+            }
+
+            let tw = 0; // word count
+            let ow = 0; // text count
+            let cnt = 0;
+            // for first m size window
+            for (let i = 0; i < m; i++) {
+                tw += B.charCodeAt(i) * p_pow[i]; // small word
+                tw = tw % mod;
+                ow += A.charCodeAt(i) * p_pow[i]; //large text
+                ow = ow % mod;
+            }
+            //console.log(tw,ow)
+            if (tw == ow) return true;
+            // for the rest windows
+            let s = 1;
+            let e = m;
+            let pow = 0;
+
+            while (e < n) {
+                let add = (A.charCodeAt(e) * p_pow[pow + m]) % mod;
+                let sub = (A.charCodeAt(s - 1) * p_pow[pow]) % mod;
+                ow = (ow - sub + add + mod) % mod;
+                tw = (prime * tw) % mod;
+                if (tw == ow) return true;
+                s++;
+                e++;
+                pow++;
+            }
+
+            return cnt;
+        }
+
+        let ans = solve(repeatedA, B);
+        return ans;
+    }
+
+    function solve(A, B) {
+        let n = A.length; // length of string a
+        let m = B.length; // length of string b
+        let str = A;
+        let count = 1;
+        // Find the minimum number of times to repeat A so that B is a substring
+        while (str.length < B.length) {
+            str += A;
+            count++;
+        }
+
+        if (isSubstring(str, B)) return count;
+        str += A;
+        count++;
+        if (isSubstring(str, B)) return count;
+        return -1; // If B cannot be a substring of A even after repeating
+    }
+
+    // Example usage:
+    let A = a
+    let B = b
+
+    let ans = solve(A, B);
+    return (ans); // Output: 3
+
+    =================================================================================
+
+    approach-2 :
+
+    function isSubstring(A, C) {
+  // create a new string consist all possible rotation combination B+B;
+
+  //let C = B + B;
+
+  // search A in B
+  let D = A + "@" + C; // adding a seperator to avoid A being considered while searching
+  // create a LPS array for D
+  let N = D.length;
+
+  let lps = [];
+  lps[0] = 0;
+
+  for (let i = 1; i < N; i++) {
+    let x = lps[i - 1];
+
+    while (D[i] !== D[x]) {
+      if (x == 0) {
+        x = -1;
+        break;
+      }
+      x = lps[x - 1];
+    }
+    lps[i] = x + 1;
+  }
+
+  let count = 0;
+  // int patlen
+  let patlen = A.length;
+
+  for (let i = 0; i < N; i++) {
+    if (lps[i] == patlen) {
+      return true;
+    }
+  }
+
+  return false;
+}
+function solve(A, B) {
+  let str = A;
+  let count = 1;
+  // Find the minimum number of times to repeat A so that B is a substring
+  while (str.length < B.length) {
+    str += A;
+    count++;
+  }
+
+  if (isSubstring(B, str)) return count;
+  str += A;
+  count++;
+  if (isSubstring(B, str)) return count;
+  return -1; // If B cannot be a substring of A even after repeating
+}
+let A = "abcd";
+let B = "cdabcdab";
+let ans = solve(A, B);
+console.log(ans);

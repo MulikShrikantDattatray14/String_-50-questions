@@ -1,0 +1,34 @@
+Here is the question -
+
+palindrome check in infinite stream of chacacters. and  the approach is - take two variables - first is Hf which is hashforward and second variable is Hb, which is hashbackward. so there approach is for every added character ch compare the hf and hb using the below two lines of code - hf=(hf+ch*(p**i))%m and hb = ((hb*p)+ch)%m
+
+
+================================================================================================================================================================================
+
+
+// Example usage:
+let hf = 0; // Hash forward
+let hb = 0; // Hash backward
+const p = 31; // Base for polynomial rolling hash
+const m = 1000000007; // Modulus for rolling hash
+let i = 0; // Initial power of p
+
+// Example of checking if "aba" is a palindrome in an infinite stream
+//logic :
+//hf= hf+(ch*Math.pow(p, i))%m;
+//hb= ((hb*p)+ch)%m;
+const input = "abbaabba";
+for (let ch of input) {
+    hf = (hf + ch.charCodeAt(0) * Math.pow(p, i)) % m;
+    hb = (hb * p + ch.charCodeAt(0)) % m;
+
+    // Check if the hash forward and hash backward are equal
+    if (hf === hb) {
+        console.log(true); // If equal, it's a palindrome
+    } else {
+        console.log(false); // If not equal, it's not a palindrome
+    }
+    i++;
+}
+
+================================================================================================================================================================================

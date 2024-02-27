@@ -1,0 +1,85 @@
+Problem Description :
+
+Given two string A and B of length N and M respectively consisting of lowercase letters. Find the number of occurrences of B in A.
+
+
+Example Input :
+Input 1:
+A = "acbac"
+B = "ac"
+Input 2:
+A = "aaaa"
+B = "aa"
+
+
+Example Output:
+Output 1:
+2
+Output 2:
+3
+
+
+Example Explanation
+For Input 1:
+The string "ac" occurs twice in "acbac".
+For Input 2:
+The string "aa" occurs thrice in "aaaa".
+
+================================================================================================================================================================================
+approach : -
+The Rabin-Karp algorithm is a string searching algorithm that efficiently finds all occurrences of a pattern within a text. It does so by using hash functions to quickly compare patterns with substrings of the text. The algorithm has a time complexity of O(n + m), where n is the length of the text and m is the length of the pattern. It is particularly useful for multiple pattern searches.
+
+===============================================================================================================
+//The Rabin-Karp algorithm is a string searching algorithm that efficiently finds all occurrences of a pattern within a text. It does so by using hash functions to quickly compare patterns with substrings of the text. The algorithm has a time complexity of O(n + m), where n is the length of the text and m is the length of the pattern.
+
+//It is particularly useful for multiple pattern searches.
+
+function solve(A, B) {
+    let n = A.length; // large text
+    let m = B.length; // small word // it is the pattern
+
+    let prime = 31;
+    let mod = 1e9 + 7;
+    // p_pow stores the powers of 31, like 1,31 ,961.....till A.length i.e n
+    let p_pow = new Array(n);
+    p_pow[0] = 1;
+    for (let i = 1; i < n; i++) {
+        p_pow[i] = (p_pow[i - 1] * prime) % mod;
+    }
+
+    let tw = 0; // word count
+    let ow = 0; // text count
+    let cnt = 0;
+    // for first m size window
+    for (let i = 0; i < m; i++) {
+        tw += B.charCodeAt(i) * p_pow[i]; // small word
+        tw = tw % mod;
+        ow += A.charCodeAt(i) * p_pow[i]; //large text
+        ow = ow % mod;
+    }
+    //console.log(tw,ow)
+    if (tw == ow) cnt++;
+    // for the rest windows
+    let s = 1;
+    let e = m;
+    let pow = 0;
+
+    while (e < n) {
+        let add = (A.charCodeAt(e) * p_pow[pow + m]) % mod;
+        let sub = (A.charCodeAt(s - 1) * p_pow[pow]) % mod;
+        ow = (ow - sub + add + mod) % mod;
+        // keep multipliying prime with the tw i.e pattern, as the sliding window keeps moving forward.
+        tw = (prime * tw) % mod;
+        if (tw == ow) cnt++;
+        s++;
+        e++;
+        pow++;
+    }
+
+    return cnt;
+}
+let A = "aaaa";
+let B = "aa";
+
+let ans = solve(A, B);
+console.log(ans);

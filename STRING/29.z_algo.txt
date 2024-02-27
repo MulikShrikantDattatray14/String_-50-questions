@@ -1,0 +1,31 @@
+
+This code defines a function z-Algorithm that computes the Z array of a given string. In the example usage, we first concatenate the pattern with a character not present in the text (here, $) to ensure uniqueness, and then concatenate the text itself. Finally, we call the zAlgorithm function passing this modified string and print the resulting Z array.
+
+
+==============================================================================================================
+
+function zAlgorithm(str) {
+    const n = str.length;
+    const z = new Array(n).fill(0);
+    let [l, r] = [0, 0];
+    
+    for (let i = 1; i < n; i++) {
+        if (i <= r) {
+            z[i] = Math.min(r - i + 1, z[i - l]);
+        }
+        while (i + z[i] < n && str[z[i]] === str[i + z[i]]) {
+            z[i]++;
+        }
+        if (i + z[i] - 1 > r) {
+            [l, r] = [i, i + z[i] - 1];
+        }
+    }
+    return z;
+}
+
+// Example usage:
+const text = "abacaba";
+const pattern = "aba";
+const searchString = pattern + "$" + text;
+const zArray = zAlgorithm(searchString);
+console.log("Z array:", zArray); // Output the Z array

@@ -1,0 +1,52 @@
+Problem Description :
+Find the number of occurrences of bob in string A consisting of lowercase English alphabets.
+
+Problem Constraints
+1 <= |A| <= 1000
+
+Input Format:
+
+The first and only argument contains the string A, consisting of lowercase English alphabets.
+
+Output Format:
+Return an integer containing the answer.
+
+Example Input:
+Input 1:
+  "abobc"
+Input 2:
+  "bobob"
+
+Example Output
+Output 1:
+  1
+Output 2:
+  2
+
+Example Explanation
+Explanation 1:
+  The only occurrence is at second position.
+Explanation 2:
+  Bob occures at first and third position.
+
+
+  ===========================================================================================================================================================================
+
+let A = "bobob";
+let ans = solve(A)
+console.log(ans)
+
+function solve(A) {
+    //number of occurrences of bob in string A
+    let newA = A.toLowerCase();
+    let lowercaseA = newA.split("");
+    let n = lowercaseA.length;
+
+    let count = 0;
+    for (let i = 1; i < n - 1; i++) {
+        if (newA[i] == "o" && newA[i - 1] == "b" && newA[i + 1] == "b")
+            count = count + 1;
+    }
+    return count;
+}
+=======================================================================================    

@@ -1,0 +1,22 @@
+https://www.youtube.com/watch?v=QlwzsWs0oyc
+
+Sure, here's a brief comparison:
+
+1. Knuth-Morris-Pratt (KMP) Algorithm:
+
+KMP focuses on exploiting the structure of the pattern itself to avoid unnecessary character comparisons.
+It preprocesses the pattern to create a "failure function" that indicates where to resume the search in case of a mismatch, based on the matches found so far.
+It achieves a time complexity of O(n + m), where n is the length of the text and m is the length of the pattern, making it efficient for large texts and patterns.
+Rabin-Karp Algorithm:
+
+2.Rabin-Karp relies on hashing to quickly check potential matches between the pattern and substrings of the text.
+It hashes both the pattern and substrings of the text, comparing their hash values. If the hash values match, it performs a character-by-character comparison to confirm the match.
+It achieves an average-case time complexity of O(n + m), where n is the length of the text and m is the length of the pattern. However, it can degrade to O(n * m) in the worst-case scenario.
+Z Algorithm:
+
+3.Z Algorithm constructs an array that represents the longest common prefix between the text and each of its suffixes.
+It efficiently computes this array in linear time, allowing for pattern matching by searching for occurrences where the value in the Z array matches the length of the pattern.
+It achieves a time complexity of O(n + m), where n is the length of the text and m is the length of the pattern, similar to KMP.
+
+
+In summary, while all three algorithms are used for string matching, they employ different strategies. KMP focuses on exploiting pattern structure, Rabin-Karp uses hashing, and Z Algorithm leverages the concept of common prefixes. Each has its strengths and weaknesses depending on the characteristics of the text and pattern being searched.

@@ -1,0 +1,12 @@
+//KMP (Knuth-Morris-Pratt) algorithm is a substring search algorithm. LPS: Longest proper Prefix which is also Suffix. For example, "abcdeabc" has the LPS "abc" . Note that the string itself can't be an LPS of itself
+
+let T='aabacc';
+let n=T.length;
+let P='abac';
+let m=p.length;
+
+logic:
+
+1. s=P$T // total size = n+m+1
+2.calculate- LPS[] of size
+3.iterate and find if(LPS[i]==m) in LPS[] and return the present or not .

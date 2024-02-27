@@ -1,0 +1,122 @@
+// note : count palindromic  subsequences is a DP question 
+
+
+=================================================================================
+Problem statement :
+A subsequence of a string is achieved by removing some (possibly 0) characters without changing the order of the remaining characters.
+
+
+You have been given a string 's'.
+
+
+Find the number of non-empty palindromic subsequences (not necessarily be distinct) in string 's' and return that number modulo 10 ^ 9 + 7.
+
+
+Example :
+Input: 's' = "pqqr"
+
+Output: 5
+
+Explanation: The subsequences are:
+
+p
+
+q
+
+q
+
+r
+
+qq
+
+Please note that both "q" are considered different.
+Detailed explanation ( Input/output format, Notes, Images )
+Sample Input 1 :
+pqqr
+
+
+Sample output 1 :
+5
+
+
+Explanation of Sample output 1 :
+The subsequences are:
+p
+q
+q
+r
+qq
+Please note that both "q" are considered different.
+
+
+Sample Input 2 :
+abc
+
+
+Sample output 2 :
+3
+
+
+Sample Input 3:
+aaaa
+
+
+Sample Output 3:
+15
+
+
+Expected time complexity :
+The expected time complexity is O(|s| ^ 2).
+
+
+Constraints :
+1 <= |s| <= 1000
+
+Where |s| denotes the length of 's'.
+
+Time limit: 1 sec
+
+=================================================================================
+function computeLPS(txt) {
+    let n = txt.length;
+    let LPS = [];
+    LPS[0] = 0;
+    for (let i = 1; i < n; i++) {
+      let x = LPS[i - 1];
+  
+      while (txt[i] != txt[x]) {
+        if (x == 0) {
+          x = -1;
+          break;
+        }
+  
+        x = LPS[x - 1];
+      }
+  
+      LPS[i] = x + 1;
+    }
+  
+    return LPS;
+  }
+  
+  let pattern = "madam";
+  let original;
+  let count=0;
+  let n = pattern.length;
+  for (let i = 0; i < n; i++) {
+    for (let j = i; j < n; j++) {
+      let subarr = pattern.substring(i, j + 1);
+      original = subarr;
+      subarr = subarr + "$" + subarr.split("").reverse().join("");
+      let lps = computeLPS(subarr);
+      let last = lps[lps.length - 1];
+      let sub = subarr.substring(0, last);
+      if (original.length == last){
+          count++;
+          console.log(original)
+      } 
+    }
+  }
+  console.log(count);
+
+=======================================================================================

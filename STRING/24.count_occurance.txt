@@ -1,0 +1,8 @@
+let T='abcdabc'
+let P='abc'
+let m=P.length
+
+logic:-
+
+1.let s=P$T;
+2.In the  final LPS[]- count the no of  occurance of the m.

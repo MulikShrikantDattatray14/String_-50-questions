@@ -1,0 +1,64 @@
+
+https://leetcode.com/problems/sum-of-beauty-of-all-substrings/description/
+
+The beauty of a string is the difference in frequencies between the most frequent and least frequent characters.
+
+For example, the beauty of "abaacc" is 3 - 1 = 2.
+Given a string s, return the sum of beauty of all of its substrings.
+
+ 
+
+Example 1:
+
+Input: s = "aabcb"
+Output: 5
+Explanation: The substrings with non-zero beauty are ["aab","aabc","aabcb","abcb","bcb"], each with beauty equal to 1.
+Example 2:
+
+Input: s = "aabcbaa"
+Output: 17
+ 
+
+Constraints:
+
+1 <= s.length <= 500
+s consists of only lowercase English letters.
+
+
+
+==============================================================================================================================================================================================================================
+
+//beauty of a string is the difference in frequencies between the most frequent and least frequent characters.
+//Given a string s, return the sum of beauty of all of its substrings.
+
+
+let s = "aabcbaa"; //17
+
+let ans = beautysum(s);
+console.log(ans);
+
+function beautysum(s) {
+    let res = 0;
+    let alpha;
+    for (let i = 0; i < s.length; i++) {
+        alpha = new Array(26).fill(0);
+        for (let j = i; j < s.length; j++) {
+            alpha[s.charCodeAt(j) - "a".charCodeAt(0)]++;
+            res += beauty(alpha);
+        }
+    }
+    return res;
+}
+
+function beauty(alpha) {
+    let mf = -1; // most frequent
+    let lf = 1e9; // least frequent
+    for (let i = 0; i < 26; i++) {
+        mf = Math.max(mf, alpha[i]);
+        if (alpha[i] >= 1) {//count only those whose frequency is greater than or equal to 1 (>=1), no point in taking into account >=0
+            lf = Math.min(lf, alpha[i]);
+        }
+    }
+    console.log(mf, lf)
+    return mf - lf;
+}

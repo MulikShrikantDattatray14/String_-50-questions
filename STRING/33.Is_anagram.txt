@@ -1,0 +1,39 @@
+Problem Statement:
+
+ Given two strings, check if two strings are anagrams of each other or not.
+
+Examples:
+
+Example 1:
+Input: CAT, ACT
+Output: true
+Explanation: Since the count of every letter of both strings are equal.
+
+Example 2:
+Input: RULES, LESRT 
+Output: false
+Explanation: Since the count of U and T  is not equal in both strings.
+
+========================================================================================
+function isAnagram(s, t) {
+    const freqS = Array(26).fill(0);
+    const freqT = Array(26).fill(0);
+    for (let i = 0; i < s.length; i++) {
+        freqS[s.charCodeAt(i) - "a".charCodeAt(0)]++;
+    }
+    for (let i = 0; i < t.length; i++) {
+        freqT[t.charCodeAt(i) - "a".charCodeAt(0)]++;
+    }
+    for (let i = 0; i < 26; i++) {
+        if (freqS[i] !== freqT[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+// Example usage:
+console.log(isAnagram("anagram", "nagaram")); // Output: true
+console.log(isAnagram("rat", "car")); // Output: false
+
+
+================================================================================================

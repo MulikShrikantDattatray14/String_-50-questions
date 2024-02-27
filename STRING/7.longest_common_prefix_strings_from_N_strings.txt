@@ -1,0 +1,61 @@
+Problem Description:
+
+Given the array of strings A, you need to find the longest string S, which is the prefix of ALL the strings in the array.
+The longest common prefix for a pair of strings S1 and S2 is the longest string S which is the prefix of both S1 and S2.
+Example: the longest common prefix of "abcdefgh" and "abcefgh" is "abc".
+
+Problem Constraints:
+0 <= sum of length of all strings <= 1000000
+
+Input Format:
+The only argument given is an array of strings A.
+
+Output Format:
+Return the longest common prefix of all strings in A.
+
+Example Input:
+Input 1:
+A = ["abcdefgh", "aefghijk", "abcefgh"]
+Input 2:
+A = ["abab", "ab", "abcd"];
+
+Example Output:
+Output 1:
+"a"
+Output 2:
+"ab"
+
+
+Example Explanation
+Explanation 1:
+Longest common prefix of all the strings is "a".
+Explanation 2:
+Longest common prefix of all the strings is "ab".
+
+
+========================================================================================================================================================================================================================================================================
+function longestCommonPrefix(A) {
+    if (A.length === 0) return ""; // If array is empty, return an empty string
+    let prefix = A[0]; // Start with the first string in the array as prefix
+    for (let i = 1; i < A.length; i++) {
+        // Iterate through the rest of the strings
+        let j = 0;
+        while (j < prefix.length && j < A[i].length && prefix[j] === A[i][j]) {
+            j++; // Increment index while characters match
+        }
+        prefix = prefix.substring(0, j); // Update prefix to the common substring
+
+        if (prefix === "") return ""; // If prefix becomes empty, return immediately
+    }
+    return prefix;
+}
+
+// Example usage:
+const A1 = ["abcdefgh", "aefghijk", "abcefgh"];
+console.log(longestCommonPrefix(A1)); // Output: "a"
+
+const A2 = ["abab", "abab", "abaeb", "abab"];
+console.log(longestCommonPrefix(A2)); // Output: "ab"
+
+
+================================================================================================================================================================================

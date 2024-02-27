@@ -1,0 +1,16 @@
+return all the substrings starting at a given index ;
+
+
+
+//return all the substrings starting at a given index ;
+
+let s = "shrikant";
+let n = s.length;
+let index = 4
+for (let i = 0; i <= n; i++) {
+    if (index <= i) {
+        let ans = s.substring(index, i);
+        console.log(ans);
+    }
+}
+
